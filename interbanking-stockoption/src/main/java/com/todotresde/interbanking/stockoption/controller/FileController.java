@@ -9,7 +9,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
@@ -20,8 +19,8 @@ import java.util.stream.Collectors;
 /**
  * The type File controller.
  */
-@RequestMapping("/api/stockoption/file")
-@Controller
+@RequestMapping("/stockoption/file")
+@RestController
 public class FileController {
 
     /**

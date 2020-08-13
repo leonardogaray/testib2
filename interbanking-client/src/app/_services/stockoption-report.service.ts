@@ -3,7 +3,7 @@ import { HttpClient, HttpRequest, HttpHeaders, HttpEvent  } from '@angular/commo
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-let API_URL = environment.apiUrl + '/stockoption/file';
+let API_URL = environment.apiUrl + '/stockoption';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class StockOptionReportService {
   }
 
   getCSV(filename: string): Observable<any> {
-    return this.http.get(API_URL + '/files/getCSV/' + filename);
+    return this.http.get(API_URL + '/file/files/getCSV/' + filename);
   }
 
   getStrategies(filename: string): Observable<any> {

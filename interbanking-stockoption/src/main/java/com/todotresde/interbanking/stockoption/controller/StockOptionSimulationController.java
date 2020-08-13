@@ -8,14 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
  * The type Stock option simulation controller.
  */
-@RequestMapping("/api/stockoption/file")
-@Controller
+@RequestMapping("/stockoption/simulate/")
+@RestController
 public class StockOptionSimulationController {
 
     /**
@@ -30,7 +31,7 @@ public class StockOptionSimulationController {
      * @param filename the filename
      * @return the file
      */
-    @GetMapping("/simulate/{filename:.+}")
+    @GetMapping("/{filename:.+}")
     public ResponseEntity<?> getFile(@PathVariable String filename) {
         List<Strategy> strategies = stockOptionSimulationService.simulate(filename);
         return ResponseEntity.ok(strategies);
