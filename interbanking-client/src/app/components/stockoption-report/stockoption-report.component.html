@@ -1,0 +1,34 @@
+<div class="container">
+    <form>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Earn Money</th>
+                        <th scope="col">Total Purchases</th>
+                        <th scope="col">Total Purchases Profitable</th>
+                        <th scope="col">Top 5 Purchases</th>
+                        <th scope="col">Top 3 Purchases Profitable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let strategyReport of strategyReports">
+                        <th scope="row">1</th>
+                        <td>{{strategyReport.earnMoney}}</td>
+                        <td>{{strategyReport.totalPurchases}}</td>
+                        <td>{{strategyReport.totalPurchasesProfitable}}</td>
+                        <td><p *ngFor="let top5Purchase of strategyReport.top5Purchases">{{top5Purchase[0]}} - {{top5Purchase[1]}}</p></td>
+                        <td><p *ngFor="let top3PurchaseProfitable of strategyReport.top3PurchasesProfitable">{{top3PurchaseProfitable[0]}} - {{top3PurchaseProfitable[1]}}</p></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    <div class="stock-option-report-container">
+        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+            [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+            [plugins]="lineChartPlugins">
+        </canvas>
+    </div>
+</div>
