@@ -1,6 +1,6 @@
 <div id="app">
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Interbanking</a>
+  <nav class="navbar navbar-expand navbar-light bg-white">
+    <a href="/" class="logo"><img alt="icono" class="interbanking-logo" src="assets/images/logo-low.gif"></a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
         <a href="/home" class="nav-link" routerLink="home">Home </a>
@@ -8,10 +8,7 @@
       <li class="nav-item" *ngIf="showAdminBoard">
         <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
       </li>
-      <li class="nav-item" *ngIf="showModeratorBoard">
-        <a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a>
-      </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isLoggedIn">
         <a href="/stock-option-load" class="nav-link" routerLink="stock-option-load">Stock Options </a>
       </li>
       <li class="nav-item">
@@ -38,7 +35,7 @@
     </ul>
   </nav>
 
-  <div class="container">
+  <div class="container interbanking-top-space">
     <router-outlet></router-outlet>
   </div>
 </div>

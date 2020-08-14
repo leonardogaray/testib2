@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-const API_URL = environment.apiUrl + '/test/';
+const API_URL = environment.apiUrl + '/auth/test/';
 
 @Injectable({
   providedIn: 'root'

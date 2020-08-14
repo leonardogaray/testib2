@@ -4,14 +4,32 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
+/**
+ * The type Csv utils.
+ */
 public class CSVUtils {
 
     private static final String DEFAULT_SEPARATOR = ", ";
 
+    /**
+     * Write line.
+     *
+     * @param w      the w
+     * @param values the values
+     * @throws IOException the io exception
+     */
     public static void writeLine(Writer w, List<String> values) throws IOException {
         writeLine(w, values, DEFAULT_SEPARATOR, ' ');
     }
 
+    /**
+     * Write line.
+     *
+     * @param w          the w
+     * @param values     the values
+     * @param separators the separators
+     * @throws IOException the io exception
+     */
     public static void writeLine(Writer w, List<String> values, String separators) throws IOException {
         writeLine(w, values, separators, ' ');
     }
@@ -26,6 +44,15 @@ public class CSVUtils {
 
     }
 
+    /**
+     * Write line.
+     *
+     * @param w           the w
+     * @param values      the values
+     * @param separators  the separators
+     * @param customQuote the custom quote
+     * @throws IOException the io exception
+     */
     public static void writeLine(Writer w, List<String> values, String separators, char customQuote) throws IOException {
 
         boolean first = true;

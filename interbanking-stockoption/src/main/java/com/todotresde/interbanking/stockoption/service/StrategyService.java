@@ -31,8 +31,14 @@ public interface StrategyService {
      *
      * @param strategy     the strategy
      * @param stockOptions the stock options
+     * @param forceCell    the force cell
      */
     public void sellStockOptions(Strategy strategy, List<StockOption> stockOptions, Boolean forceCell);
 
-    public List<Strategy> generateStrategies();
+    /**
+     * Generate strategies list.
+     *
+     * @return the list
+     */
+    public List<Strategy> generateStrategies(Float userCash);
 }

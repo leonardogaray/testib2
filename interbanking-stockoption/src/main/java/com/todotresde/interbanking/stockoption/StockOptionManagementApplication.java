@@ -13,34 +13,34 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.annotation.Resource;
 
 /**
- * The type Course management application.
+ * The type StockOption management application.
  */
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
 public class StockOptionManagementApplication implements CommandLineRunner {
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
+	/**
+	 * The entry point of application.
+	 *
+	 * @param args the input arguments
+	 */
+	public static void main(String[] args) {
 		SpringApplication.run(StockOptionManagementApplication.class, args);
 	}
 
-    /**
-     * The File upload service.
-     */
-    @Resource
+	/**
+	 * The File upload service.
+	 */
+	@Resource
 	FileUploadService fileUploadService;
 
-    /**
-     * Cors configurer web mvc configurer.
-     *
-     * @return the web mvc configurer
-     */
-    @Bean
+	/**
+	 * Cors configurer web mvc configurer.
+	 *
+	 * @return the web mvc configurer
+	 */
+	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer(){
 			@Override

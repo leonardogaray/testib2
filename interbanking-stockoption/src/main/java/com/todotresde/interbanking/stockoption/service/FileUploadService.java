@@ -44,7 +44,18 @@ public interface FileUploadService {
      */
     public Stream<Path> loadAll();
 
+    /**
+     * Generate csv.
+     *
+     * @param filename the filename
+     */
     public void generateCSV(String filename);
 
+    /**
+     * Gets csv.
+     *
+     * @param filename the filename
+     * @return the csv
+     */
     public List<StockOption> getCSV(String filename);
 }

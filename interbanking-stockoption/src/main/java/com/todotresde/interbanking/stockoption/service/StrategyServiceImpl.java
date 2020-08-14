@@ -85,13 +85,14 @@ public class StrategyServiceImpl implements StrategyService{
         }
     }
 
-    public List<Strategy> generateStrategies(){
+    @Override
+    public List<Strategy> generateStrategies(Float userCash){
         List<Strategy> strategies = new ArrayList<Strategy>();
         StrategyRuleInterface strategyRule = null;
         Strategy strategy = null;
 
         //Strategy 1
-        strategy = new Strategy();
+        strategy = new Strategy(1, userCash);
         strategyRule = new StrategyRule1();
         strategy.addStrategyRule(strategyRule.setSellAction(false));
         strategyRule = new StrategyRule2();
@@ -99,7 +100,7 @@ public class StrategyServiceImpl implements StrategyService{
         strategies.add(strategy);
 
         //Strategy 2
-        strategy = new Strategy();
+        strategy = new Strategy(2, userCash);
         strategyRule = new StrategyRule3();
         strategy.addStrategyRule(strategyRule.setSellAction(false));
         strategyRule = new StrategyRule4();
@@ -107,7 +108,7 @@ public class StrategyServiceImpl implements StrategyService{
         strategies.add(strategy);
 
         //Strategy 3
-        strategy = new Strategy();
+        strategy = new Strategy(3, userCash);
         strategyRule = new StrategyRule1();
         strategy.addStrategyRule(strategyRule.setSellAction(false));
         strategyRule = new StrategyRule2();

@@ -14,20 +14,34 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties("strategyRule")
 public class Strategy {
+    private Integer strategyId;
     private String userId;
     private Float cash;
     private List<StockOptionStrategy> stockOptionStrategies;
     private List<StrategyRuleInterface> strategyRules;
 
-    public Strategy (){
+    /**
+     * Instantiates a new Strategy.
+     */
+    public Strategy (Integer strategyId, Float userCash){
+        this.strategyId = strategyId;
         this.strategyRules = new ArrayList<StrategyRuleInterface>();
         this.stockOptionStrategies = new ArrayList<>();
-        this.cash = new Float(100000);
+        this.cash = new Float(userCash);
     }
 
+    /**
+     * Add strategy rule.
+     *
+     * @param strategyRule the strategy rule
+     */
     public void addStrategyRule(StrategyRuleInterface strategyRule){
         this.strategyRules.add(strategyRule);
     }
+
+    /**
+     * Sort stock option strategies.
+     */
     public void sortStockOptionStrategies(){
         Collections.sort(this.stockOptionStrategies);
     }

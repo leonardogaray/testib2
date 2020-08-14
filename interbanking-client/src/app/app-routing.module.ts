@@ -6,7 +6,6 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BoardUserComponent } from './components/board-user/board-user.component';
-import { BoardModeratorComponent } from './components/board-moderator/board-moderator.component';
 import { BoardAdminComponent } from './components/board-admin/board-admin.component';
 import { StockOptionLoadComponent } from './components/stockoption-load/stockoption-load.component';
 import { StockOptionReportComponent } from './components/stockoption-report/stockoption-report.component';
@@ -17,7 +16,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'user', component: BoardUserComponent },
-  { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'stock-option-load', component: StockOptionLoadComponent},
   { path: 'stock-option-report/:filename', component: StockOptionReportComponent},

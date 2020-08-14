@@ -1,4 +1,5 @@
 export class StrategyReport {
+    strategyId: number = 0;
     earnMoney: number = 0;
     totalPurchases: number = 0;
     totalPurchasesProfitable: number = 0;

@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonsHelper } from '../../_helpers/commons.helper';
 import { StockOptionReportService } from '../../_services/stockoption-report.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { StrategyReport } from '../../models/strategy-report';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stock-option-report',
   templateUrl: './stockoption-report.component.html',
-  styleUrls: ['./stockoption-report.component.css']
+  styleUrls: ['./stockoption-report.component.css', '../../app.component.css']
 })
 export class StockOptionReportComponent implements OnInit {
   //NG2-CHARTS
@@ -24,29 +26,39 @@ export class StockOptionReportComponent implements OnInit {
   public lineChartType = 'line';
   public lineChartPlugins = [];
 
+  userCash: number = 100000;
+  fileName: string = "";
+
   //STRATEGIES
   public strategyReports: StrategyReport[] = [];
-  constructor(private stockOptionReportService: StockOptionReportService, private route: ActivatedRoute) {
+  constructor(
+    private stockOptionReportService: StockOptionReportService, 
+    private route: ActivatedRoute, 
+    private router: Router,
+    private commonsHelper: CommonsHelper) {
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       if(params.has('filename')){
-        this.stockOptionReportService.getCSV(params.get('filename')).subscribe((data: any) => {
+        this.fileName = params.get('filename');
+        this.stockOptionReportService.getCSV(this.fileName).subscribe((data: any) => {
           this.transformData(data);
-        });
-
-        this.stockOptionReportService.getStrategies(params.get('filename')).subscribe((data: any) => {
-          data.forEach(strategy => {
-            this.strategyReports.push(this.calculateStrategyReport(strategy));
-          })
         });
       }
     });
     
   }
 
-  calculateStrategyReport(strategy: any): StrategyReport {
+  simulate(): void{
+    this.stockOptionReportService.getStrategies(this.fileName, this.userCash).subscribe((data: any) => {
+      data.forEach(strategy => {
+        this.strategyReports.push(this.calculateStrategyReport(strategy));
+      })
+    });
+  }
+
+  private calculateStrategyReport(strategy: any): StrategyReport {
     let strategyReport: StrategyReport = new StrategyReport();
     let top5Purchases : any[] = [];
     let top3PurchasesProfitable : any[] = [];
@@ -77,13 +89,14 @@ export class StockOptionReportComponent implements OnInit {
       top3PurchasesProfitable[stockOptionStrategy.brand] += diff;
     });
 
-    strategyReport.top5Purchases = this.sortAssocArray(top5Purchases);
-    strategyReport.top3PurchasesProfitable = this.sortAssocArray(top3PurchasesProfitable);
-
+    strategyReport.top5Purchases = this.commonsHelper.sortAssocArray(top5Purchases);
+    strategyReport.top3PurchasesProfitable = this.commonsHelper.sortAssocArray(top3PurchasesProfitable);
+    strategyReport.strategyId = strategy.strategyId;
+    
     return strategyReport;
   }
 
-  transformData(data: any): void {
+  private transformData(data: any): void {
     let temp: any[] = [];
     let final: any[] = [];
 
@@ -113,17 +126,7 @@ export class StockOptionReportComponent implements OnInit {
     this.lineChartData = final;
   }
 
-  private sortAssocArray(assocArray: any[]): any[]{
-    var tuples = [];
-
-    for (var key in assocArray) tuples.push([key, assocArray[key]]);
-
-    tuples.sort(function(a, b) {
-        a = a[1];
-        b = b[1];
-        return a < b ? 1 : (a > b ? -1 : 0);
-    });
-
-    return tuples;
+  back(){
+    this.router.navigate(['/stock-option-load']);
   }
 }

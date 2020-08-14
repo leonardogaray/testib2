@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Strategy rule 3.
+ */
 public class StrategyRule3 extends StrategyRule{
     private Map<String, List<Float>> lastStockOptions = new HashMap<String, List<Float>>();
 

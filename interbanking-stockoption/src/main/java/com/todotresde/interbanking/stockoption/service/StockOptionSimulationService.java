@@ -15,7 +15,13 @@ public interface StockOptionSimulationService {
      * @param filename the filename
      * @return the list
      */
-    public List<Strategy> simulate(String filename);
+    public List<Strategy> simulate(String filename, Float userCash);
 
+    /**
+     * Read file list.
+     *
+     * @param filename the filename
+     * @return the list
+     */
     public List<StockOption> readFile(String filename);
 }

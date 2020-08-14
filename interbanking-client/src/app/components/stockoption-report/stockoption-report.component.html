@@ -1,34 +1,53 @@
-<div class="container">
-    <form>
-        <div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Earn Money</th>
-                        <th scope="col">Total Purchases</th>
-                        <th scope="col">Total Purchases Profitable</th>
-                        <th scope="col">Top 5 Purchases</th>
-                        <th scope="col">Top 3 Purchases Profitable</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let strategyReport of strategyReports">
-                        <th scope="row">1</th>
-                        <td>{{strategyReport.earnMoney}}</td>
-                        <td>{{strategyReport.totalPurchases}}</td>
-                        <td>{{strategyReport.totalPurchasesProfitable}}</td>
-                        <td><p *ngFor="let top5Purchase of strategyReport.top5Purchases">{{top5Purchase[0]}} - {{top5Purchase[1]}}</p></td>
-                        <td><p *ngFor="let top3PurchaseProfitable of strategyReport.top3PurchasesProfitable">{{top3PurchaseProfitable[0]}} - {{top3PurchaseProfitable[1]}}</p></td>
-                    </tr>
-                </tbody>
-            </table>
+
+<div class="card">
+    <h5 class="card-header" i18n>
+        StockOption Report
+        <button class="btn btn-secondary float-right" (click)="back()">Back</button>
+    </h5>
+    <div class="card-body">
+        <h5 class="card-title" i18n>
+            Report
+            <button class="btn btn-success float-right" (click)="simulate()" >Simulate</button>
+            <input class="form-control float-right col-sm-2" type="number" [(ngModel)]="userCash" min="100000" max="1000000" />
+        </h5>
+        <form>
+            <div class="interbanking-top-space" i18n>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Earn Money</th>
+                            <th scope="col">Total Purchases</th>
+                            <th scope="col">Total Purchases Profitable</th>
+                            <th scope="col">Top 5 Purchases</th>
+                            <th scope="col">Top 3 Purchases Profitable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let strategyReport of strategyReports">
+                            <th scope="row">{{strategyReport.strategyId}}</th>
+                            <td>{{strategyReport.earnMoney}}</td>
+                            <td>{{strategyReport.totalPurchases}}</td>
+                            <td>{{strategyReport.totalPurchasesProfitable}}</td>
+                            <td>
+                                <p *ngFor="let top5Purchase of strategyReport.top5Purchases">{{top5Purchase[0]}} -
+                                    {{top5Purchase[1]}}</p>
+                            </td>
+                            <td>
+                                <p *ngFor="let top3PurchaseProfitable of strategyReport.top3PurchasesProfitable">
+                                    {{top3PurchaseProfitable[0]}} - {{top3PurchaseProfitable[1]}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        <h5 class="card-title">CSV Data</h5>
+        <div class="stock-option-report-container">
+            <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+                [plugins]="lineChartPlugins">
+            </canvas>
         </div>
-    </form>
-    <div class="stock-option-report-container">
-        <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-            [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
-            [plugins]="lineChartPlugins">
-        </canvas>
     </div>
 </div>

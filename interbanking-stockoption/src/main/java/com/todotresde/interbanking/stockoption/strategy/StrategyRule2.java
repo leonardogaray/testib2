@@ -3,6 +3,9 @@ package com.todotresde.interbanking.stockoption.strategy;
 import com.todotresde.interbanking.stockoption.model.StockOption;
 import com.todotresde.interbanking.stockoption.model.Strategy;
 
+/**
+ * The type Strategy rule 2.
+ */
 public class StrategyRule2 extends StrategyRule {
 
     @Override

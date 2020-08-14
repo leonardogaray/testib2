@@ -10,6 +10,9 @@ import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+/**
+ * The type Strategy rule 4.
+ */
 public class StrategyRule4 extends StrategyRule {
 
     @Override

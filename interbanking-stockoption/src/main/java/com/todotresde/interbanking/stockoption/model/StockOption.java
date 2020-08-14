@@ -42,6 +42,14 @@ public class StockOption implements Comparable<StockOption>{
         return getDate().compareTo(stockOption.getDate());
     }
 
+    /**
+     * Is valid boolean.
+     *
+     * @param brand the brand
+     * @param date  the date
+     * @param price the price
+     * @return the boolean
+     */
     public static Boolean IsValid(String brand, String date, String price){
         try{
             LocalDate.parse(date, FORMATTER);

@@ -1,5 +1,8 @@
 package com.todotresde.interbanking.stockoption.strategy;
 
+/**
+ * The type Strategy rule.
+ */
 abstract class StrategyRule implements StrategyRuleInterface{
     private Boolean sellAction;
 
