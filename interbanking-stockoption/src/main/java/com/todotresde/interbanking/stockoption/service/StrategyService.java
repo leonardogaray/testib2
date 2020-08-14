@@ -40,5 +40,5 @@ public interface StrategyService {
      *
      * @return the list
      */
-    public List<Strategy> generateStrategies(Float userCash);
+    public List<Strategy> generateStrategies(Float userCash, Float buyPercentage, Float sellPercentage, Float buyAverageValue, Float sellDaysNumber);
 }

@@ -28,9 +28,14 @@ export class StockOptionReportComponent implements OnInit {
 
   userCash: number = 100000;
   fileName: string = "";
+  buyPercentage: number = 1;
+  sellPercentage: number = 2;
+  buyAverageValue: number = 1;
+  sellDaysNumber: number = 5;
 
   //STRATEGIES
   public strategyReports: StrategyReport[] = [];
+
   constructor(
     private stockOptionReportService: StockOptionReportService, 
     private route: ActivatedRoute, 
@@ -51,7 +56,8 @@ export class StockOptionReportComponent implements OnInit {
   }
 
   simulate(): void{
-    this.stockOptionReportService.getStrategies(this.fileName, this.userCash).subscribe((data: any) => {
+    this.stockOptionReportService.getStrategies(this.fileName, this.userCash, this.buyPercentage, this.sellPercentage, this.buyAverageValue, this.sellDaysNumber).subscribe((data: any) => {
+      this.strategyReports = [];
       data.forEach(strategy => {
         this.strategyReports.push(this.calculateStrategyReport(strategy));
       })

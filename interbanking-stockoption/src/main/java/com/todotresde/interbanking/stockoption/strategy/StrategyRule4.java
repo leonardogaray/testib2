@@ -22,7 +22,7 @@ public class StrategyRule4 extends StrategyRule {
 
         if(!stockOptionStrategies.isEmpty()){
             StockOptionStrategy stockOptionStrategyToSell = stockOptionStrategies.get(0);
-            if (DAYS.between(stockOptionStrategyToSell.getBuyDate(), currentStockOption.getDate()) >= 5) {
+            if (DAYS.between(stockOptionStrategyToSell.getBuyDate(), currentStockOption.getDate()) >= this.getValue()) {
                 return currentStockOption;
             }
         }

@@ -10,7 +10,7 @@ public class StrategyRule1 extends StrategyRule {
     @Override
     public StockOption rule(Strategy strategy, StockOption previousStockOption, StockOption currentStockOption) {
         Float priceDifference = previousStockOption.getPrice() - currentStockOption.getPrice();
-        if (priceDifference > 0 && priceDifference > previousStockOption.getPrice() * 0.01) {
+        if (priceDifference > 0 && priceDifference > previousStockOption.getPrice() * (this.getValue()/100)) {
             return currentStockOption;
         }
         return null;

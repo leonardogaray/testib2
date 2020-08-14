@@ -5,14 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
-import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { BoardAdminComponent } from './components/board-admin/board-admin.component';
-import { BoardUserComponent } from './components/board-user/board-user.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { StockOptionLoadComponent } from './components/stockoption-load/stockoption-load.component';
 import { StockOptionReportComponent } from './components/stockoption-report/stockoption-report.component';
@@ -26,7 +25,6 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     RegisterComponent,
     HomeComponent,
     BoardAdminComponent,
-    BoardUserComponent,
     ProfileComponent,
     StockOptionLoadComponent,
     StockOptionReportComponent

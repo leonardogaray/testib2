@@ -86,7 +86,7 @@ public class StrategyServiceImpl implements StrategyService{
     }
 
     @Override
-    public List<Strategy> generateStrategies(Float userCash){
+    public List<Strategy> generateStrategies(Float userCash, Float buyPercentage, Float sellPercentage, Float buyAverageValue, Float sellDaysNumber){
         List<Strategy> strategies = new ArrayList<Strategy>();
         StrategyRuleInterface strategyRule = null;
         Strategy strategy = null;
@@ -94,28 +94,36 @@ public class StrategyServiceImpl implements StrategyService{
         //Strategy 1
         strategy = new Strategy(1, userCash);
         strategyRule = new StrategyRule1();
+        strategyRule.setValue(buyPercentage);
         strategy.addStrategyRule(strategyRule.setSellAction(false));
         strategyRule = new StrategyRule2();
+        strategyRule.setValue(sellPercentage);
         strategy.addStrategyRule(strategyRule.setSellAction(true));
         strategies.add(strategy);
 
         //Strategy 2
         strategy = new Strategy(2, userCash);
         strategyRule = new StrategyRule3();
+        strategyRule.setValue(buyAverageValue);
         strategy.addStrategyRule(strategyRule.setSellAction(false));
         strategyRule = new StrategyRule4();
+        strategyRule.setValue(sellDaysNumber);
         strategy.addStrategyRule(strategyRule.setSellAction(true));
         strategies.add(strategy);
 
         //Strategy 3
         strategy = new Strategy(3, userCash);
         strategyRule = new StrategyRule1();
+        strategyRule.setValue(buyPercentage);
         strategy.addStrategyRule(strategyRule.setSellAction(false));
         strategyRule = new StrategyRule2();
+        strategyRule.setValue(sellPercentage);
         strategy.addStrategyRule(strategyRule.setSellAction(true));
         strategyRule = new StrategyRule3();
+        strategyRule.setValue(buyAverageValue);
         strategy.addStrategyRule(strategyRule.setSellAction(false));
         strategyRule = new StrategyRule4();
+        strategyRule.setValue(sellDaysNumber);
         strategy.addStrategyRule(strategyRule.setSellAction(true));
         strategies.add(strategy);
 

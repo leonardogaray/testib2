@@ -30,12 +30,12 @@ public class StockOptionSimulationServiceImpl implements StockOptionSimulationSe
     private List<Strategy> strategies;
 
     @Override
-    public List<Strategy> simulate(String filename, Float userCash){
+    public List<Strategy> simulate(String filename, Float userCash, Float buyPercentage, Float sellPercentage, Float buyAverageValue, Float sellDaysNumber){
         strategies = new ArrayList<>();
 
         stockOptionSimulation = new StockOptionSimulation(new Long(1), readFile(filename));
 
-        strategies = strategyService.generateStrategies(userCash);
+        strategies = strategyService.generateStrategies(userCash, buyPercentage, sellPercentage, buyAverageValue, sellDaysNumber);
 
         startsSimulation();
 

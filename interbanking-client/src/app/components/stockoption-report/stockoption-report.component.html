@@ -1,47 +1,83 @@
-
 <div class="card">
-    <h5 class="card-header" i18n>
+    <h5 class="card-header" >
         StockOption Report
         <button class="btn btn-secondary float-right" (click)="back()">Back</button>
     </h5>
     <div class="card-body">
-        <h5 class="card-title" i18n>
-            Report
-            <button class="btn btn-success float-right" (click)="simulate()" >Simulate</button>
-            <input class="form-control float-right col-sm-2" type="number" [(ngModel)]="userCash" min="100000" max="1000000" />
-        </h5>
-        <form>
-            <div class="interbanking-top-space" i18n>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Earn Money</th>
-                            <th scope="col">Total Purchases</th>
-                            <th scope="col">Total Purchases Profitable</th>
-                            <th scope="col">Top 5 Purchases</th>
-                            <th scope="col">Top 3 Purchases Profitable</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let strategyReport of strategyReports">
-                            <th scope="row">{{strategyReport.strategyId}}</th>
-                            <td>{{strategyReport.earnMoney}}</td>
-                            <td>{{strategyReport.totalPurchases}}</td>
-                            <td>{{strategyReport.totalPurchasesProfitable}}</td>
-                            <td>
-                                <p *ngFor="let top5Purchase of strategyReport.top5Purchases">{{top5Purchase[0]}} -
-                                    {{top5Purchase[1]}}</p>
-                            </td>
-                            <td>
-                                <p *ngFor="let top3PurchaseProfitable of strategyReport.top3PurchasesProfitable">
-                                    {{top3PurchaseProfitable[0]}} - {{top3PurchaseProfitable[1]}}</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div>
+            <h5 class="interbankin-subtitle">
+                Strategy 1
+            </h5>
+            <div class="form-group row">
+                <label for="buyPercentage" class="col-sm-2 col-form-label">Buy Percentage</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" [(ngModel)]="buyPercentage">
+                </div>
+                <label for="sellPercentage" class="col-sm-2 col-form-label">Sell Percentage</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" [(ngModel)]="sellPercentage">
+                </div>
             </div>
-        </form>
+            <h5 class="interbankin-subtitle">
+                Strategy 2
+            </h5>
+            <div class="form-group row">
+                <label for="buyAverageValue" class="col-sm-2 col-form-label">Buy Average Value</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" [(ngModel)]="buyAverageValue">
+                </div>
+                <label for="sellDaysNumber" class="col-sm-2 col-form-label">Sell Days Number</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" [(ngModel)]="sellDaysNumber">
+                </div>
+            </div>
+            <h5 class="interbankin-subtitle">
+                For All Strategies
+            </h5>
+            <div class="form-group row">
+                <label for="userCash" class="col-sm-2 col-form-label">Cash</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" [(ngModel)]="userCash" min="100000"
+                    max="1000000" />
+                </div>
+                <div class="col-sm-6">
+                    <button class="btn btn-success float-right" (click)="simulate()">Simulate</button>
+                </div>
+            </div>
+        </div>
+        <h5 class="card-title" >
+            Report Result
+        </h5>
+        <div class="interbanking-top-space">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Earn Money</th>
+                        <th scope="col">Total Purchases</th>
+                        <th scope="col">Total Purchases Profitable</th>
+                        <th scope="col">Top 5 Purchases</th>
+                        <th scope="col">Top 3 Purchases Profitable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let strategyReport of strategyReports">
+                        <th scope="row">{{strategyReport.strategyId}}</th>
+                        <td>{{strategyReport.earnMoney}}</td>
+                        <td>{{strategyReport.totalPurchases}}</td>
+                        <td>{{strategyReport.totalPurchasesProfitable}}</td>
+                        <td>
+                            <p *ngFor="let top5Purchase of strategyReport.top5Purchases">{{top5Purchase[0]}} -
+                                {{top5Purchase[1]}}</p>
+                        </td>
+                        <td>
+                            <p *ngFor="let top3PurchaseProfitable of strategyReport.top3PurchasesProfitable">
+                                {{top3PurchaseProfitable[0]}} - {{top3PurchaseProfitable[1]}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <h5 class="card-title">CSV Data</h5>
         <div class="stock-option-report-container">
             <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"

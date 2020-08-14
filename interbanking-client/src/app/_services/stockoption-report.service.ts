@@ -18,7 +18,7 @@ export class StockOptionReportService {
     return this.http.get(API_URL + '/file/files/getCSV/' + filename);
   }
 
-  getStrategies(filename: string, userCash: number): Observable<any> {
-    return this.http.get(API_URL + '/simulate/' + filename + '/' + userCash);
+  getStrategies(filename: string, userCash: number, buyPercentage: number, sellPercentage: number, buyAverageValue: number, sellDaysNumber: number): Observable<any> {
+    return this.http.get(API_URL + '/simulate/' + filename + '/' + userCash + '/' + buyPercentage + '/' + sellPercentage + '/' + buyAverageValue + '/' + sellDaysNumber);
   }
 }

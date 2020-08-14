@@ -31,4 +31,19 @@ public interface StrategyRuleInterface {
      * @return the sell action
      */
     public StrategyRule setSellAction(Boolean sellAction);
+
+    /**
+     * Sets value.
+     *
+     * @param value the value
+     * @return the value
+     */
+    public StrategyRule setValue(Float value);
+
+    /**
+     * Get value.
+     *
+     * @return the value
+     */
+    public Float getValue();
 }

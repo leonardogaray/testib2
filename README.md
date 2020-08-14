@@ -33,6 +33,18 @@ Start Apps
     a. Open a terminal
     b. Run [Project]/interbanking-client/ng serve 
 
+7. Execute SQL on ib_auth schemma
+    INSERT INTO roles(name) VALUES('ROLE_USER');
+    INSERT INTO roles(name) VALUES('ROLE_ADMIN');
 
-INSERT INTO roles(name) VALUES('ROLE_USER');
-INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+8. Access
+    Eureka: http://localhost:4200/home
+
+    Register yourself and Access
+
+9. Execute Simulation
+
+    a. Go to StockOption menu
+    b. Upload file
+    c. Press Report button
+    d. Set the configurations for your simulation

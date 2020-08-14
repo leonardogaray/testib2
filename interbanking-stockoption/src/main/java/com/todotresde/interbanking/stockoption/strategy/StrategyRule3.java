@@ -28,7 +28,7 @@ public class StrategyRule3 extends StrategyRule{
         lastStockOptions.get(currentStockOption.getBrand()).set(0, total);
         lastStockOptions.get(currentStockOption.getBrand()).set(1, totalValues );
 
-        if(currentStockOption.getPrice() > (totalValues/total) * 2 ){
+        if(currentStockOption.getPrice() > (totalValues/total) * this.getValue() ){
             return currentStockOption;
         }
         return null;

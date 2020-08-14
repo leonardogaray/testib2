@@ -31,9 +31,10 @@ public class StockOptionSimulationController {
      * @param filename the filename
      * @return the file
      */
-    @GetMapping("/{filename:.+}/{userCash}")
-    public ResponseEntity<?> getFile(@PathVariable String filename, @PathVariable Float userCash) {
-        List<Strategy> strategies = stockOptionSimulationService.simulate(filename, userCash);
+    @GetMapping("/{filename:.+}/{userCash}/{buyPercentage}/{sellPercentage}/{buyAverageValue}/{sellDaysNumber}")
+    public ResponseEntity<?> getFile(@PathVariable String filename, @PathVariable Float userCash,
+                                     @PathVariable Float buyPercentage, @PathVariable Float sellPercentage, @PathVariable Float buyAverageValue, @PathVariable Float sellDaysNumber) {
+        List<Strategy> strategies = stockOptionSimulationService.simulate(filename, userCash, buyPercentage, sellPercentage, buyAverageValue, sellDaysNumber);
         return ResponseEntity.ok(strategies);
     }
 }
