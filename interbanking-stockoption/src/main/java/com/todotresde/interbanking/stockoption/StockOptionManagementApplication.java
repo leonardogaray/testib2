@@ -52,7 +52,7 @@ public class StockOptionManagementApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... arg) throws Exception {
-		fileUploadService.deleteAll();
-		fileUploadService.init();
+		//fileUploadService.deleteAll();
+		//fileUploadService.init();
 	}
 }

@@ -25,9 +25,11 @@ Start Apps
     a. Open a terminal
     b. Run [Project]/interbanking-auth/gradlew bootRun 
 
-5. Start StockOption Backend (SpringBoot - Port 8001)
+5. Start StockOption Backend (SpringBoot - Port 8001/8002)
     a. Open a terminal
     b. Run [Project]/interbanking-stockoption/gradlew bootRun 
+	c. Open a terminal
+    d. Run [Project]/interbanking-stockoption/gradlew bootRun --args='--server.port=8002'
 
 6. Start Angular App (Angular 10)
     a. Open a terminal
@@ -38,7 +40,7 @@ Start Apps
     INSERT INTO roles(name) VALUES('ROLE_ADMIN');
 
 8. Access
-    Eureka: http://localhost:4200/home
+    StockOption Simulator: http://localhost:4200/home
 
     Register yourself and Access
 
@@ -46,5 +48,6 @@ Start Apps
 
     a. Go to StockOption menu
     b. Upload file
-    c. Press Report button
+    c. Press Simulation button
     d. Set the configurations for your simulation
+	e. Press Start Simulation

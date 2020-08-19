@@ -4,6 +4,8 @@ import com.todotresde.interbanking.stockoption.model.StockOption;
 import com.todotresde.interbanking.stockoption.model.StockOptionSimulation;
 import com.todotresde.interbanking.stockoption.model.Strategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -24,16 +26,21 @@ public class StockOptionSimulationServiceImpl implements StockOptionSimulationSe
     @Autowired
     private StrategyService strategyService;
 
-    private final Path root = Paths.get("uploads");
+    @Value( "${upload.folder}" )
+    private String uploadFolder;
+
+    @Autowired
+    private Environment env;
+
     private StockOptionSimulation stockOptionSimulation;
 
     private List<Strategy> strategies;
 
     @Override
-    public List<Strategy> simulate(String filename, Float userCash, Float buyPercentage, Float sellPercentage, Float buyAverageValue, Float sellDaysNumber){
+    public List<Strategy> simulate(String username, String filename, Float userCash, Float buyPercentage, Float sellPercentage, Float buyAverageValue, Float sellDaysNumber){
         strategies = new ArrayList<>();
 
-        stockOptionSimulation = new StockOptionSimulation(new Long(1), readFile(filename));
+        stockOptionSimulation = new StockOptionSimulation(username, readFile(username, filename));
 
         strategies = strategyService.generateStrategies(userCash, buyPercentage, sellPercentage, buyAverageValue, sellDaysNumber);
 
@@ -45,8 +52,8 @@ public class StockOptionSimulationServiceImpl implements StockOptionSimulationSe
     }
 
     @Override
-    public List<StockOption> readFile(String filename){
-        Path file = root.resolve(filename);
+    public List<StockOption> readFile(String username, String filename){
+        Path file = getRootForUser(username).resolve(filename);
         BufferedReader bufferedReader = null;
         String line = "";
         String cvsSplitBy = ", ";
@@ -117,5 +124,15 @@ public class StockOptionSimulationServiceImpl implements StockOptionSimulationSe
         for(Strategy strategy : strategies) {
             strategyService.sellStockOptions(strategy, previousStockOptions, true);
         };
+    }
+
+    @Override
+    public Path getRoot(){
+        return Paths.get(env.getProperty("upload.folder"));
+    }
+
+    @Override
+    public Path getRootForUser(String username){
+        return Paths.get(env.getProperty("upload.folder") + "/" + username);
     }
 }

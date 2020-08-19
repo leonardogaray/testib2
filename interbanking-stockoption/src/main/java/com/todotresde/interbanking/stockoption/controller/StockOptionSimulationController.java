@@ -4,7 +4,6 @@ import com.todotresde.interbanking.stockoption.model.Strategy;
 import com.todotresde.interbanking.stockoption.service.StockOptionSimulationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +30,10 @@ public class StockOptionSimulationController {
      * @param filename the filename
      * @return the file
      */
-    @GetMapping("/{filename:.+}/{userCash}/{buyPercentage}/{sellPercentage}/{buyAverageValue}/{sellDaysNumber}")
-    public ResponseEntity<?> getFile(@PathVariable String filename, @PathVariable Float userCash,
+    @GetMapping("/{username}/{filename:.+}/{userCash}/{buyPercentage}/{sellPercentage}/{buyAverageValue}/{sellDaysNumber}")
+    public ResponseEntity<?> getFile(@PathVariable String username, @PathVariable String filename, @PathVariable Float userCash,
                                      @PathVariable Float buyPercentage, @PathVariable Float sellPercentage, @PathVariable Float buyAverageValue, @PathVariable Float sellDaysNumber) {
-        List<Strategy> strategies = stockOptionSimulationService.simulate(filename, userCash, buyPercentage, sellPercentage, buyAverageValue, sellDaysNumber);
+        List<Strategy> strategies = stockOptionSimulationService.simulate(username, filename, userCash, buyPercentage, sellPercentage, buyAverageValue, sellDaysNumber);
         return ResponseEntity.ok(strategies);
     }
 }

@@ -3,6 +3,7 @@ package com.todotresde.interbanking.stockoption.service;
 import com.todotresde.interbanking.stockoption.model.StockOption;
 import com.todotresde.interbanking.stockoption.model.Strategy;
 
+import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -12,10 +13,10 @@ public interface StockOptionSimulationService {
     /**
      * Simulate list.
      *
-     * @param filename the filename
+     * @param username the username
      * @return the list
      */
-    public List<Strategy> simulate(String filename, Float userCash, Float buyPercentage, Float sellPercentage, Float buyAverageValue, Float sellDaysNumber);
+    public List<Strategy> simulate(String username, String filename, Float userCash, Float buyPercentage, Float sellPercentage, Float buyAverageValue, Float sellDaysNumber);
 
     /**
      * Read file list.
@@ -23,5 +24,9 @@ public interface StockOptionSimulationService {
      * @param filename the filename
      * @return the list
      */
-    public List<StockOption> readFile(String filename);
+    public List<StockOption> readFile(String username, String filename);
+
+    public Path getRoot();
+
+    public Path getRootForUser(String username);
 }

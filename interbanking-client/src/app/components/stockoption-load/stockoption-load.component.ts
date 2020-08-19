@@ -40,18 +40,19 @@ export class StockOptionLoadComponent implements OnInit {
           this.message = event.body.message;
           this.fileInfos = this.stockOptionLoadService.getFiles();
         }
+        
+        this.selectedFiles = undefined;
       },
       err => {
         this.progress = 0;
         this.message = 'Could not upload the file!';
         this.currentFile = undefined;
+        this.selectedFiles = undefined;
       });
-  
-    this.selectedFiles = undefined;
   }
 
   report(file: FileInfo){
-    this.router.navigate(['/stock-option-report/' + file.name]);
+    this.router.navigate(['/stock-option-simulation/' + file.name]);
   }
 
 }

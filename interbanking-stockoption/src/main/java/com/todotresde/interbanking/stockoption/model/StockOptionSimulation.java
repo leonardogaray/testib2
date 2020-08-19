@@ -11,18 +11,18 @@ import java.util.List;
 @Data
 public class StockOptionSimulation {
     private Date date;
-    private Long userId;
+    private String username;
     private List<com.todotresde.interbanking.stockoption.model.StockOption> stockOptions;
 
     /**
      * Instantiates a new Stock option simulation.
      *
-     * @param userId       the user id
+     * @param username       the username
      * @param stockOptions the stock options
      */
-    public StockOptionSimulation(Long userId, List<com.todotresde.interbanking.stockoption.model.StockOption> stockOptions){
+    public StockOptionSimulation(String username, List<com.todotresde.interbanking.stockoption.model.StockOption> stockOptions){
         this.setDate(new Date());
-        this.setUserId(userId);
+        this.setUsername(username);
         this.setStockOptions(stockOptions);
     }
 }

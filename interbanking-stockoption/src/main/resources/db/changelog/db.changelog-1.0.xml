@@ -7,4 +7,24 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
+    <changeSet  id="1"  author="todotresde">
+        <createTable  tableName="file_info">
+            <column  name="id"  type="int"  autoIncrement="true">
+                <constraints  primaryKey="true"  nullable="false"/>
+            </column>
+            <column  name="username"  type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="name"  type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="url"  type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            DROP TABLE file_info;
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>

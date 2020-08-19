@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
-import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -14,7 +14,8 @@ import { HomeComponent } from './components/home/home.component';
 import { BoardAdminComponent } from './components/board-admin/board-admin.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { StockOptionLoadComponent } from './components/stockoption-load/stockoption-load.component';
-import { StockOptionReportComponent } from './components/stockoption-report/stockoption-report.component';
+import { StockOptionSimulationComponent } from './components/stockoption-simulation/stockoption-simulation.component';
+import { StockOptionChartComponent } from './components/stockoption-chart/stockoption-chart.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 
@@ -27,7 +28,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     BoardAdminComponent,
     ProfileComponent,
     StockOptionLoadComponent,
-    StockOptionReportComponent
+    StockOptionSimulationComponent,
+    StockOptionChartComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
     HttpClientModule,
     ChartsModule,
     NgbCarouselModule,
+    NgbNavModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],

@@ -7,7 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BoardAdminComponent } from './components/board-admin/board-admin.component';
 import { StockOptionLoadComponent } from './components/stockoption-load/stockoption-load.component';
-import { StockOptionReportComponent } from './components/stockoption-report/stockoption-report.component';
+import { StockOptionSimulationComponent } from './components/stockoption-simulation/stockoption-simulation.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'stock-option-load', component: StockOptionLoadComponent},
-  { path: 'stock-option-report/:filename', component: StockOptionReportComponent},
+  { path: 'stock-option-simulation/:filename', component: StockOptionSimulationComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

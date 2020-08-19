@@ -3,6 +3,7 @@ import { HttpClient, HttpRequest, HttpHeaders, HttpEvent  } from '@angular/commo
 import { Observable } from 'rxjs';
 import { FileInfo } from '../models/file-info';
 import { environment } from '../../environments/environment';
+import { TokenStorageService } from './token-storage.service';
 
 let API_URL = environment.apiUrl + '/stockoption/file';
 
@@ -11,7 +12,7 @@ let API_URL = environment.apiUrl + '/stockoption/file';
 })
 export class StockOptionLoadService {
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) { 
 
   }
 
@@ -20,7 +21,7 @@ export class StockOptionLoadService {
 
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', API_URL + '/upload', formData, {
+    const req = new HttpRequest('POST', API_URL + '/upload/' + this.tokenStorageService.getUsername(), formData, {
       reportProgress: true,
       responseType: 'json'
     });
@@ -29,10 +30,10 @@ export class StockOptionLoadService {
   }
 
   getFiles(): Observable<any> {
-    return this.http.get(API_URL + '/files/');
+    return this.http.get(API_URL + '/files/' + this.tokenStorageService.getUsername());
   }
 
   process(fileInfo: FileInfo): Observable<any> {
-    return this.http.get(API_URL + '/simulate/' + fileInfo.name);
+    return this.http.get(API_URL + '/simulate/' + fileInfo.name + '/' + this.tokenStorageService.getUsername());
   }
 }

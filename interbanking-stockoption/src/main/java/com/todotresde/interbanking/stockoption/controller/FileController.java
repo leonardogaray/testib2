@@ -35,11 +35,11 @@ public class FileController {
      * @param file the file
      * @return the response entity
      */
-    @PostMapping("/upload")
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/upload/{username}")
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file, @PathVariable String username) {
         String message = "";
         try {
-            fileUploadService.save(file);
+            fileUploadService.save(file, username);
 
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
@@ -54,17 +54,11 @@ public class FileController {
      *
      * @return the list files
      */
-    @GetMapping("/files")
-    public ResponseEntity<List<FileInfo>> getListFiles() {
-        List<FileInfo> fileInfoInfos = fileUploadService.loadAll().map(path -> {
-            String filename = path.getFileName().toString();
-            String url = MvcUriComponentsBuilder
-                    .fromMethodName(FileController.class, "getFile", path.getFileName().toString()).build().toString();
+    @GetMapping("/files/{username}")
+    public ResponseEntity<List<FileInfo>> getFiles(@PathVariable String username) {
+        List<FileInfo> fileInfos = fileUploadService.loadAll(username);
 
-            return new FileInfo(filename, url);
-        }).collect(Collectors.toList());
-
-        return ResponseEntity.status(HttpStatus.OK).body(fileInfoInfos);
+        return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
     }
 
     /**
@@ -73,9 +67,9 @@ public class FileController {
      * @param filename the filename
      * @return the file
      */
-    @GetMapping("/files/{filename:.+}")
-    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-        Resource file = fileUploadService.load(filename);
+    @GetMapping("/file/{filename:.+}/{username}")
+    public ResponseEntity<Resource> getFile(@PathVariable String filename, @PathVariable String username) {
+        Resource file = fileUploadService.load(filename, username);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
@@ -86,9 +80,9 @@ public class FileController {
      * @param filename the filename
      * @return the response entity
      */
-    @GetMapping("/files/generateCSV/{filename:.+}")
-    public ResponseEntity<?> generateCSV(@PathVariable String filename) {
-        fileUploadService.generateCSV(filename);
+    @GetMapping("/files/generateCSV/{filename:.+}/{username}")
+    public ResponseEntity<?> generateCSV(@PathVariable String filename, @PathVariable String username) {
+        fileUploadService.generateCSV(username, filename);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -98,9 +92,9 @@ public class FileController {
      * @param filename the filename
      * @return the csv
      */
-    @GetMapping("/files/getCSV/{filename:.+}")
-    public ResponseEntity<?> getCSV(@PathVariable String filename) {
-        List<StockOption> stockOptions = fileUploadService.getCSV(filename);
+    @GetMapping("/files/getCSV/{filename:.+}/{username}")
+    public ResponseEntity<?> getCSV(@PathVariable String filename, @PathVariable String username) {
+        List<StockOption> stockOptions = fileUploadService.getCSV(username, filename);
         return ResponseEntity.ok(stockOptions);
     }
 }

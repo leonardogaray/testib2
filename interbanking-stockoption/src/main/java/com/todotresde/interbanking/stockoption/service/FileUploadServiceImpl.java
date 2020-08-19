@@ -1,8 +1,12 @@
 package com.todotresde.interbanking.stockoption.service;
 
 import com.todotresde.interbanking.stockoption.commons.CSVUtils;
+import com.todotresde.interbanking.stockoption.model.FileInfo;
 import com.todotresde.interbanking.stockoption.model.StockOption;
+import com.todotresde.interbanking.stockoption.repository.FileInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -28,33 +32,58 @@ import java.util.stream.Stream;
 @Service
 public class FileUploadServiceImpl implements com.todotresde.interbanking.stockoption.service.FileUploadService {
 
-    private final Path root = Paths.get("uploads");
+    @Value( "${upload.folder}" )
+    private String uploadFolder;
 
     @Autowired
-    private com.todotresde.interbanking.stockoption.service.StockOptionSimulationService stockOptionSimulationService;
+    private FileInfoRepository fileInfoRepository;
+
+    @Autowired
+    private Environment env;
+
+    @Autowired
+    private StockOptionSimulationService stockOptionSimulationService;
 
     @Override
     public void init() {
         try {
-            Files.createDirectory(root);
+            Files.createDirectory(getRoot());
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize folder for upload!");
         }
     }
 
     @Override
-    public void save(MultipartFile file) {
+    public void initForUser(String username) {
         try {
-            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+            if(!Files.exists(getRootForUser(username)))
+                Files.createDirectory(getRootForUser(username));
+        } catch (IOException e) {
+            throw new RuntimeException("Could not initialize folder for upload!");
+        }
+    }
+
+    @Override
+    public void save(MultipartFile file, String username) {
+        try {
+            initForUser(username);
+            Files.deleteIfExists(this.getRootForUser(username).resolve(file.getOriginalFilename()));
+
+            Files.copy(file.getInputStream(), this.getRootForUser(username).resolve(file.getOriginalFilename()));
+            FileInfo fileInfo = fileInfoRepository.findByUsernameAndName(username, file.getOriginalFilename());
+
+            if(fileInfo == null)
+                fileInfoRepository.save(new FileInfo(username, file.getOriginalFilename(), file.getOriginalFilename()));
+
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
     }
 
     @Override
-    public Resource load(String filename) {
+    public Resource load(String filename, String username) {
         try {
-            Path file = root.resolve(filename);
+            Path file = getRootForUser(username).resolve(filename);
             Resource resource = new UrlResource(file.toUri());
 
             if (resource.exists() || resource.isReadable()) {
@@ -69,21 +98,17 @@ public class FileUploadServiceImpl implements com.todotresde.interbanking.stocko
 
     @Override
     public void deleteAll() {
-        FileSystemUtils.deleteRecursively(root.toFile());
+        FileSystemUtils.deleteRecursively(getRoot().toFile());
     }
 
     @Override
-    public Stream<Path> loadAll() {
-        try {
-            return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not load the files!");
-        }
+    public List<FileInfo> loadAll(String username) {
+        return fileInfoRepository.findByUsername(username);
     }
 
     @Override
-    public void generateCSV(String filename){
-        Path file = root.resolve(filename);
+    public void generateCSV(String username, String filename){
+        Path file = getRootForUser(username).resolve(filename);
         FileSystemUtils.deleteRecursively(file.toFile());
 
         HashMap<String, Float> stockOptions = new HashMap<>();
@@ -121,8 +146,17 @@ public class FileUploadServiceImpl implements com.todotresde.interbanking.stocko
     }
 
     @Override
-    public List<StockOption> getCSV(String filename){
-        return stockOptionSimulationService.readFile(filename);
+    public List<StockOption> getCSV(String username, String filename){
+        return stockOptionSimulationService.readFile(username, filename);
     }
 
+    @Override
+    public Path getRoot(){
+        return Paths.get(env.getProperty("upload.folder"));
+    }
+
+    @Override
+    public Path getRootForUser(String username){
+        return Paths.get(env.getProperty("upload.folder") + "/" + username);
+    }
 }

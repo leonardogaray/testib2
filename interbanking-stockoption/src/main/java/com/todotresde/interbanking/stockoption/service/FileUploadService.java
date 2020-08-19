@@ -1,5 +1,6 @@
 package com.todotresde.interbanking.stockoption.service;
 
+import com.todotresde.interbanking.stockoption.model.FileInfo;
 import com.todotresde.interbanking.stockoption.model.StockOption;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,12 +18,14 @@ public interface FileUploadService {
      */
     public void init();
 
+    public void initForUser(String username);
+
     /**
      * Save.
      *
      * @param file the file
      */
-    public void save(MultipartFile file);
+    public void save(MultipartFile file, String username);
 
     /**
      * Load resource.
@@ -30,7 +33,7 @@ public interface FileUploadService {
      * @param filename the filename
      * @return the resource
      */
-    public Resource load(String filename);
+    public Resource load(String filename, String username);
 
     /**
      * Delete all.
@@ -42,14 +45,14 @@ public interface FileUploadService {
      *
      * @return the stream
      */
-    public Stream<Path> loadAll();
+    public List<FileInfo> loadAll(String username);
 
     /**
      * Generate csv.
      *
      * @param filename the filename
      */
-    public void generateCSV(String filename);
+    public void generateCSV(String username, String filename);
 
     /**
      * Gets csv.
@@ -57,5 +60,9 @@ public interface FileUploadService {
      * @param filename the filename
      * @return the csv
      */
-    public List<StockOption> getCSV(String filename);
+    public List<StockOption> getCSV(String username, String filename);
+
+    public Path getRoot();
+
+    public Path getRootForUser(String username);
 }
